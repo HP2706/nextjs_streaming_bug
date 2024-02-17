@@ -36,14 +36,16 @@ function App() {
                 }
 
                 // Decode the stream chunk to text
-                const chunk = decoder.decode(value, { stream: true });
-                console.log(chunk);
+                const chunk = decoder.decode(value, {stream: true});
+                let data = chunk.split('\n').filter(line => line.trim()).map(line => JSON.parse(line));
 
                 // Assuming the chunk is a JSON string, parse it and update state
                 try {
-                    const json = JSON.parse(chunk);
-                    console.log(json);
-                    setMessages(prevMessages => [...prevMessages, json]);
+
+                    for (const json of data) {
+                        console.log("Received:", json);
+                        setMessages(prevMessages => [...prevMessages, json]);
+                    }
                 } catch (error) {
                     console.error("Error parsing JSON:", error);
                 }

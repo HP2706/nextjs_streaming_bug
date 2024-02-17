@@ -19,5 +19,5 @@ def basicStream():
     def generate():
         for i in range(10):
             yield json.dumps({"number": i}) + "\n"
-            time.sleep(1)
+            time.sleep(0.5)
     return StreamingResponse(content=generate(),  media_type="application/json")
